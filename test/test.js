@@ -55,6 +55,26 @@ function tests() {
     });
   });
 
+  describe('non-object tests', function () {
+
+    var nonObjects = [
+      null,
+      false,
+      true,
+      0.1,
+      -2,
+      1,
+      "foo",
+      [1, 2, 3]
+    ];
+
+    nonObjects.forEach(function (obj) {
+      it('test: ' + JSON.stringify(obj), function () {
+        testUsingObject(obj);
+      });
+    });
+  });
+
   describe('whitespace tests', function () {
     it('test spaces ', function () {
       vuvuzela.parse('{"foo"\t:\t:   "bar"}').should.deep.equal({"foo": "bar"});
