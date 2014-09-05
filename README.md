@@ -8,7 +8,7 @@ Goals
 
 - No recursion (avoids "too much recursion" or "maximum call stack" errors)
 - Speed (no functions within functions, just a `while` loop and a stack)
-- Small footprint (<1 KB minified and gzipped)
+- Small footprint (~1 KB minified and gzipped)
 
 Description
 -----

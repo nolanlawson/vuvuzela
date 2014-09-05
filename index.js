@@ -96,11 +96,26 @@ exports.parse = function (str) {
         continue;
       }
     }
+
+    if (/[0123456789\-]/.test(collationIndex)) {
+      var parsedNum = '';
+      i--;
+      while (true) {
+        var numChar = str[i++];
+        if (/[\d\.\-e\+]/.test(numChar)) {
+          parsedNum += numChar;
+        } else {
+          i--;
+          break;
+        }
+      }
+      pop(parseFloat(parsedNum), stack, metaStack);
+      continue;
+    } else if (/[\s:,]/.test(collationIndex)) {
+      continue;
+    }
+
     switch (collationIndex) {
-      case ' ':
-      case ':':
-      case ',':
-        break;
       case 'n':
         i += 3; // 'ull'
         pop(null, stack, metaStack);
@@ -112,31 +127,6 @@ exports.parse = function (str) {
       case 'f':
         i += 4; // 'alse'
         pop(false, stack, metaStack);
-        break;
-      case '0':
-      case '1':
-      case '2':
-      case '3':
-      case '4':
-      case '5':
-      case '6':
-      case '7':
-      case '8':
-      case '9':
-      case '-':
-      case '.':
-        var parsedNum = '';
-        i--;
-        while (true) {
-          var numChar = str[i++];
-          if (/[\d\.\-e\+]/.test(numChar)) {
-            parsedNum += numChar;
-          } else {
-            i--;
-            break;
-          }
-        }
-        pop(parseFloat(parsedNum), stack, metaStack);
         break;
       case '"':
         var parsedString = '';
@@ -175,7 +165,7 @@ exports.parse = function (str) {
         break;
       default:
         throw new Error(
-          'unexpectedly reached end of input: ' + collationIndex);
+          'parse error at char: ' + collationIndex);
     }
   }
 };

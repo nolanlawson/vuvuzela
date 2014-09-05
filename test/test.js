@@ -55,6 +55,18 @@ function tests() {
     });
   });
 
+  describe('whitespace tests', function () {
+    it('test tabs ', function () {
+      vuvuzela.parse('{"foo"\t:\t:"bar"}').should.deep.equal({"foo": "bar"});
+    });
+    it('test newlines ', function () {
+      vuvuzela.parse('{"foo"\n\n:\n:"bar"}').should.deep.equal({"foo": "bar"});
+    });
+    it('test newlines + tabs', function () {
+      vuvuzela.parse('{\t"foo"\n\n\t:\n\n\t"bar"}').should.deep.equal({"foo": "bar"});
+    });
+  });
+
   describe('advanced tests', function () {
 
     var advancedObjects = require('./advanced');
