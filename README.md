@@ -22,7 +22,7 @@ Description
 
 The vuvuzela is a coarse instrument, but it's lightweight, and it gets the job done.
 
-This module will use up tons of memory, but it'll never throw a "call stack" exception. Your JSON objects can be as deeply nested as you like.
+This module will use up tons of memory, but unlike the native `JSON` methods or [json3](https://github.com/bestiejs/json3), it'll never throw a "call stack" exception. Your JSON objects can be as deeply nested as you like.
 
 This is not a streaming library, so unlike [oboe](https://github.com/jimhigson/oboe.js)/[clarinet](https://github.com/dscape/clarinet), it reads the whole thing into memory at once. It's also [quite a bit slower than the native JSON methods](http://jsperf.com/vuvuzela-vs-json). Use at your own risk!
 
