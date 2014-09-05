@@ -6,15 +6,21 @@ Super simple JSON parse/stringify library.
 Goals
 -----
 
-- No recursion (avoids "too much recursion" or "maximum call stack" errors)
-- Speed (no functions within functions, just a `while` loop and a stack)
-- Small footprint (~1 KB minified and gzipped)
+- **No recursion**
+  - Avoids the "too much recursion" or "maximum call stack" errors that the native `JSON.parse` and `JSON.stringify`  methods may throw if an object is deeply nested.
+- **Speed**
+  - No functions-within-functions, just a `while` loop and a stack.
+- **Small footprint**
+  - ~1 KB minified and gzipped
 
 Description
 -----
 
+[![vuvuzela, courtesy of Berndt Meyer via the Wikipedia page](vuvuzela.jpg)](https://en.wikipedia.org/wiki/Vuvuzela)
 
-This doesn't implement the full JSON spec, but it's designed to work for most common structures. And importantly, it doesn't care how deeply nested your JSON structures are.
+The vuvuzela is a coarse instrument, but it's lightweight, and it gets the job done.
+
+This module will use up tons of memory, but it'll never throw a "call stack" exception. Your JSON objects can be as deeply nested as you like.
 
 This is not a streaming library, so unlike [oboe](https://github.com/jimhigson/oboe.js)/[clarinet](https://github.com/dscape/clarinet), it reads the whole thing into memory at once. Use at your own risk!
 
