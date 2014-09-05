@@ -116,18 +116,20 @@ exports.parse = function (str) {
       case '7':
       case '8':
       case '9':
+      case '-':
+      case '.':
         var parsedNum = '';
         i--;
         while (true) {
           var numChar = str[i++];
-          if (/\d/.test(numChar)) {
+          if (/[\d\.\-]/.test(numChar)) {
             parsedNum += numChar;
           } else {
             i--;
             break;
           }
         }
-        pop(parseInt(parsedNum, 10), stack, metaStack);
+        pop(parseFloat(parsedNum), stack, metaStack);
         break;
       case '"':
         var parsedString = '';
