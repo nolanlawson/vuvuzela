@@ -12,3 +12,8 @@ env:
   matrix:
   - COMMAND=test
   - COMMAND=coverage
+
+branches:
+  only:
+  - master
+  - /^pull*$/
