@@ -85,7 +85,6 @@ exports.parse = function (str) {
 
   while (true) {
     var collationIndex = str[i++];
-    //console.log('collationIndex is: ' + collationIndex);
     if (collationIndex === '}' ||
         collationIndex === ']' ||
         typeof collationIndex === 'undefined') {
@@ -145,9 +144,6 @@ exports.parse = function (str) {
         var numConsecutiveSlashes = 0;
         while (true) {
           var ch = str[i++];
-          //console.log('ch is: ' + ch);
-          //console.log('lastCh is: ' + lastCh);
-          //console.log('numConsecutiveSlashes is: ' + numConsecutiveSlashes);
           if (ch !== '"' || (lastCh === '\\' &&
               numConsecutiveSlashes % 2 === 1)) {
             parsedString += ch;
@@ -161,7 +157,6 @@ exports.parse = function (str) {
             break;
           }
         }
-        //console.log('res is: ' + parsedString);
         pop(JSON.parse('"' + parsedString + '"'), stack, metaStack);
         break;
       case '[':
