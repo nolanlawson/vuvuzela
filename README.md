@@ -10,7 +10,7 @@ Goals
 
 - **No recursion**
   - Avoids the "too much recursion" or "maximum call stack" errors that the native `JSON.parse` and `JSON.stringify`  methods may throw if an object is deeply nested.
-- **Speed**
+- **Simplicity**
   - No functions-within-functions, just a `while` loop and a stack.
 - **Small footprint**
   - ~1 KB minified and gzipped
