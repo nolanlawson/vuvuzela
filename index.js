@@ -23,7 +23,9 @@ exports.stringify = function stringify(input) {
     if (val) {
       res += val;
     } else if (typeof obj !== 'object') {
-      res += JSON.stringify(obj);
+      res += typeof obj === 'undefined' ? null : JSON.stringify(obj);
+    } else if (obj === null) {
+      res += 'null';
     } else if (Array.isArray(obj)) {
       queue.push({val: ']'});
       for (var i = obj.length - 1; i >= 0; i--) {
@@ -83,6 +85,7 @@ exports.parse = function (str) {
 
   while (true) {
     var collationIndex = str[i++];
+    //console.log('collationIndex is: ' + collationIndex);
     if (collationIndex === '}' ||
         collationIndex === ']' ||
         typeof collationIndex === 'undefined') {
@@ -97,6 +100,10 @@ exports.parse = function (str) {
       case ' ':
       case ':':
       case ',':
+        break;
+      case 'n':
+        i += 3; // 'ull'
+        pop(null, stack, metaStack);
         break;
       case 't':
         i += 3; // 'rue'
@@ -122,7 +129,7 @@ exports.parse = function (str) {
         i--;
         while (true) {
           var numChar = str[i++];
-          if (/[\d\.\-]/.test(numChar)) {
+          if (/[\d\.\-e\+]/.test(numChar)) {
             parsedNum += numChar;
           } else {
             i--;
@@ -134,15 +141,26 @@ exports.parse = function (str) {
       case '"':
         var parsedString = '';
         var lastCh;
+        var numConsecutiveSlashes = 0;
         while (true) {
           var ch = str[i++];
-          if (ch !== '"' || lastCh === '\\') {
+          //console.log('ch is: ' + ch);
+          //console.log('lastCh is: ' + lastCh);
+          //console.log('numConsecutiveSlashes is: ' + numConsecutiveSlashes);
+          if (ch !== '"' || (lastCh === '\\' &&
+              numConsecutiveSlashes % 2 === 1)) {
             parsedString += ch;
             lastCh = ch;
+            if (lastCh === '\\') {
+              numConsecutiveSlashes++;
+            } else {
+              numConsecutiveSlashes = 0;
+            }
           } else {
             break;
           }
         }
+        //console.log('res is: ' + parsedString);
         pop(JSON.parse('"' + parsedString + '"'), stack, metaStack);
         break;
       case '[':

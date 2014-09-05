@@ -1,3 +1,4 @@
+// copied from clarinet
 /* jshint ignore:start */
 var BASIC = [
   {

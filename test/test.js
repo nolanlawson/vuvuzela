@@ -3,6 +3,7 @@
 
 var chai = require('chai');
 chai.use(require("chai-as-promised"));
+var deepEqual = require('deep-equal');
 
 var vuvuzela = require('../');
 
@@ -13,24 +14,41 @@ chai.should(); // var should = chai.should();
 require('bluebird'); // var Promise = require('bluebird');
 
 var basicObjects = require('./basic');
+var advancedObjects = require('./advanced');
+
+function testUsingObject(obj) {
+  var asString = vuvuzela.stringify(obj);
+  var asJsonString = JSON.stringify(obj);
+
+  var v2vObject = vuvuzela.parse(asString);
+  var j2vObject = vuvuzela.parse(asJsonString);
+  var v2jObject = JSON.parse(asString);
+
+  // if the object doesn't equal itself
+  // after JSON conversion, don't test the obj itself
+  if (deepEqual(obj, JSON.parse(JSON.stringify(obj)))) {
+    obj.should.deep.equal(v2vObject);
+  }
+  v2vObject.should.deep.equal(j2vObject);
+  j2vObject.should.deep.equal(v2jObject);
+}
 
 function tests() {
   describe('basic tests', function () {
 
     basicObjects.forEach(function (obj) {
       it('test: ' + JSON.stringify(obj), function () {
-        var asString = vuvuzela.stringify(obj);
-        var asJsonString = JSON.stringify(obj);
-
-        var obj2 = vuvuzela.parse(asString);
-        var obj3 = vuvuzela.parse(asJsonString);
-        var obj4 = JSON.parse(asString);
-
-        obj.should.deep.equal(obj2, 'equal: ' + asString);
-        obj2.should.deep.equal(obj3, 'equal: ' + asString);
-        obj3.should.deep.equal(obj4, 'equal: ' + asString);
+        testUsingObject(obj);
       });
+    });
+  });
 
+  describe('advanced tests', function () {
+    Object.keys(advancedObjects).forEach(function (key) {
+      var obj = advancedObjects[key];
+      it('test: ' + key, function () {
+        testUsingObject(obj);
+      });
     });
   });
 }
