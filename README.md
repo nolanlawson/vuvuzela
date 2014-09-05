@@ -7,8 +7,8 @@ Goals
 -----
 
 - No recursion (avoids "too much recursion" or "maximum call stack" errors)
-- Simplicity
-- Small footprint
+- Speed (no functions within functions, just a `while` loop and a stack)
+- Small footprint (< )
 
 Description
 -----

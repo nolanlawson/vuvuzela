@@ -13,9 +13,6 @@ var vuvuzela = require('../');
 chai.should(); // var should = chai.should();
 require('bluebird'); // var Promise = require('bluebird');
 
-var basicObjects = require('./basic');
-var advancedObjects = require('./advanced');
-
 function testUsingObject(obj) {
   var asString = vuvuzela.stringify(obj);
   var asJsonString = JSON.stringify(obj);
@@ -33,8 +30,23 @@ function testUsingObject(obj) {
   j2vObject.should.deep.equal(v2jObject);
 }
 
+function testUsingStringForDeeplyNested(str) {
+  // can't actually use JSON.parse/JSON.stringify here,
+  // because it fails! :P
+
+  var parsed = vuvuzela.parse(str);
+  var stringified = vuvuzela.stringify(parsed);
+  vuvuzela.parse(stringified);
+
+  // can't compare objects; we get a max call stack error. :)
+  str.should.equal(stringified);
+}
+
 function tests() {
+
   describe('basic tests', function () {
+
+    var basicObjects = require('./basic');
 
     basicObjects.forEach(function (obj) {
       it('test: ' + JSON.stringify(obj), function () {
@@ -44,10 +56,25 @@ function tests() {
   });
 
   describe('advanced tests', function () {
+
+    var advancedObjects = require('./advanced');
+
     Object.keys(advancedObjects).forEach(function (key) {
       var obj = advancedObjects[key];
       it('test: ' + key, function () {
         testUsingObject(obj);
+      });
+    });
+  });
+
+  describe('deeply nested tests', function () {
+
+    var deeplyNested = require('./deeply-nested');
+
+    deeplyNested.forEach(function (str, i) {
+      it('test: ' + i, function () {
+        console.log('string is: ' + i);
+        testUsingStringForDeeplyNested(str);
       });
     });
   });
