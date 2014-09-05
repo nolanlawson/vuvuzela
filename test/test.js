@@ -4,14 +4,14 @@
 var chai = require('chai');
 chai.use(require("chai-as-promised"));
 var deepEqual = require('deep-equal');
+var inherits = require('inherits');
 
 var vuvuzela = require('../');
 
 //
 // more variables you might want
 //
-chai.should(); // var should = chai.should();
-require('bluebird'); // var Promise = require('bluebird');
+var should = chai.should(); // var should = chai.should();
 
 function testUsingObject(obj) {
   var asString = vuvuzela.stringify(obj);
@@ -56,6 +56,9 @@ function tests() {
   });
 
   describe('whitespace tests', function () {
+    it('test spaces ', function () {
+      vuvuzela.parse('{"foo"\t:\t:   "bar"}').should.deep.equal({"foo": "bar"});
+    });
     it('test tabs ', function () {
       vuvuzela.parse('{"foo"\t:\t:"bar"}').should.deep.equal({"foo": "bar"});
     });
@@ -64,6 +67,36 @@ function tests() {
     });
     it('test newlines + tabs', function () {
       vuvuzela.parse('{\t"foo"\n\n\t:\n\n\t"bar"}').should.deep.equal({"foo": "bar"});
+    });
+  });
+
+  describe('hasOwnProperty tests', function () {
+    it('test hasOwnProperty', function () {
+      function Foo() {
+      }
+      Foo.prototype.bar = 'baz';
+
+      function SubFoo() {
+      }
+
+      inherits(SubFoo, Foo);
+
+      var o = new SubFoo();
+      o.prop = 'exists';
+
+      var converted = vuvuzela.parse(vuvuzela.stringify(o));
+      converted.should.deep.equal({prop: 'exists'});
+    });
+  });
+
+  describe('invalid json test', function () {
+    it('throws error if invalid json', function () {
+      try {
+        vuvuzela.parse('badjson');
+        should.not.exist({}, 'expected to fail');
+      } catch (err) {
+        should.exist(err);
+      }
     });
   });
 

@@ -28,13 +28,13 @@
     "min": "uglifyjs dist/vuvuzela.js -mc > dist/vuvuzela.min.js"
   },
   "devDependencies": {
-    "bluebird": "^2.3.2",
+    "browserify": "~2.36.0",
     "chai": "^1.9.1",
     "chai-as-promised": "^4.1.1",
     "deep-equal": "^0.2.1",
+    "inherits": "^2.0.1",
     "istanbul": "^0.2.7",
     "mocha": "^1.18.2",
-    "uglify-js": "^2.4.13",
-    "browserify": "~2.36.0"
+    "uglify-js": "^2.4.13"
   }
 }
