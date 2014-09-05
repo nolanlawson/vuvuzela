@@ -8,7 +8,7 @@ Goals
 
 - No recursion (avoids "too much recursion" or "maximum call stack" errors)
 - Speed (no functions within functions, just a `while` loop and a stack)
-- Small footprint (< )
+- Small footprint (<1 KB minified and gzipped)
 
 Description
 -----
@@ -31,3 +31,21 @@ var asString = vuvuzela.stringify({hello: 'world'}); // '{"hello":"world"}'
 var asJson = vuvuzela.parse('{"hello": "world"}'); // {hello: 'world'}
 
 ```
+
+Browser builds are available in the `dist/` folder. They'll create a `window.vuvuzela` object you can use.
+
+Testing
+------
+
+Unit tests:
+
+    $ npm test
+    
+Coverage tests:
+
+    $ npm run coverage
+    
+Building
+-------
+
+    $ npm run build

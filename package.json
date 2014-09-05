@@ -23,7 +23,9 @@
     "test": "npm run jshint && npm run test-node",
     "jshint": "jshint -c .jshintrc *.js test/test.js",
     "test-node": "istanbul test ./node_modules/mocha/bin/_mocha test/test.js",
-    "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100"
+    "coverage": "npm test --coverage && istanbul check-coverage --lines 100 --function 100 --statements 100 --branches 100",
+    "build": "mkdir -p dist && browserify index.js -s vuvuzela -o dist/vuvuzela.js && npm run min",
+    "min": "uglifyjs dist/vuvuzela.js -mc > dist/vuvuzela.min.js"
   },
   "devDependencies": {
     "bluebird": "^2.3.2",
@@ -31,6 +33,8 @@
     "chai-as-promised": "^4.1.1",
     "deep-equal": "^0.2.1",
     "istanbul": "^0.2.7",
-    "mocha": "^1.18.2"
+    "mocha": "^1.18.2",
+    "uglify-js": "^2.4.13",
+    "browserify": "~2.36.0"
   }
 }
