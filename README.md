@@ -16,7 +16,7 @@ Description
 
 This doesn't implement the full JSON spec, but it's designed to work for most common structures. And importantly, it doesn't care how deeply nested your JSON structures are.
 
-This is not a streaming library, so unlike oboe/clarinet, it reads the whole thing into memory at once. Use at your own risk!
+This is not a streaming library, so unlike [oboe](https://github.com/jimhigson/oboe.js)/[clarinet](https://github.com/dscape/clarinet), it reads the whole thing into memory at once. Use at your own risk!
 
 Usage
 ------
