@@ -1,0 +1,25 @@
+{
+  "name": "vuvuzela",
+  "version": "0.1.0",
+  "description": "Super simple and incomplete JSON parse/stringify library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nolanlawson/vuvuzela.git"
+  },
+  "keywords": [
+    "vuvuzela",
+    "json.parse",
+    "stringify",
+    "recursion"
+  ],
+  "author": "Nolan Lawson <nolan.lawson@gmail.com>",
+  "license": "Apache 2",
+  "bugs": {
+    "url": "https://github.com/nolanlawson/vuvuzela/issues"
+  },
+  "homepage": "https://github.com/nolanlawson/vuvuzela"
+}
