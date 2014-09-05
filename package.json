@@ -34,6 +34,7 @@
     "deep-equal": "^0.2.1",
     "inherits": "^2.0.1",
     "istanbul": "^0.2.7",
+    "jshint": "^2.5.5",
     "mocha": "^1.18.2",
     "uglify-js": "^2.4.13"
   }

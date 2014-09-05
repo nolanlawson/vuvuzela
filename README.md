@@ -1,6 +1,8 @@
 vuvuzela
 =========
 
+[![Build Status](https://travis-ci.org/nolanlawson/vuvuzela.svg)](https://travis-ci.org/nolanlawson/vuvuzela)
+
 Super simple JSON parse/stringify library.
 
 Goals
