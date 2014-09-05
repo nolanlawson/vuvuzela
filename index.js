@@ -4,10 +4,6 @@
  * Stringify/parse functions that don't operate
  * recursively, so they avoid call stack exceeded
  * errors.
- *
- * These don't implement the full JSON spec.
- * They just do enough to parse our rev tree objects,
- * which are pretty predictable.
  */
 exports.stringify = function stringify(input) {
   var queue = [];
