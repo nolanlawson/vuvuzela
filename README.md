@@ -45,7 +45,7 @@ Browser builds are available in the `dist/` folder. They'll create a `window.vuv
 Limitations
 ---------
 
-Currently it will only parse objects and arrays, not arbitrary values (booleans, strings, numbers, `null`). It's an open issue; I'll get around to it.
+Currently it will only parse objects and arrays, not arbitrary values (booleans, strings, numbers, `null`).
 
 Testing
 ------
