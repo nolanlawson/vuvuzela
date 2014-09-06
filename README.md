@@ -3,7 +3,7 @@ vuvuzela
 
 [![Build Status](https://travis-ci.org/nolanlawson/vuvuzela.svg)](https://travis-ci.org/nolanlawson/vuvuzela)
 
-Super simple JSON parse/stringify library.
+Simple and non-recursive JSON parse/stringify library.
 
 Goals
 -----
@@ -41,6 +41,11 @@ var asJson = vuvuzela.parse('{"hello": "world"}'); // {hello: 'world'}
 ```
 
 Browser builds are available in the `dist/` folder. They'll create a `window.vuvuzela` object you can use.
+
+Limitations
+---------
+
+Currently it will only parse objects and arrays, not arbitrary values (booleans, strings, numbers, `null`). It's an open issue; I'll get around to it.
 
 Testing
 ------
