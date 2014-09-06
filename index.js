@@ -10,11 +10,11 @@ exports.stringify = function stringify(input) {
   queue.push({obj: input});
 
   var res = '';
-  var next;
+  var next, obj, prefix, val, i, arrayPrefix, keys, k, key, value, objPrefix;
   while ((next = queue.pop())) {
-    var obj = next.obj;
-    var prefix = next.prefix || '';
-    var val = next.val || '';
+    obj = next.obj;
+    prefix = next.prefix || '';
+    val = next.val || '';
     res += prefix;
     if (val) {
       res += val;
@@ -24,23 +24,23 @@ exports.stringify = function stringify(input) {
       res += 'null';
     } else if (Array.isArray(obj)) {
       queue.push({val: ']'});
-      for (var i = obj.length - 1; i >= 0; i--) {
-        var arrayPrefix = i === 0 ? '' : ',';
+      for (i = obj.length - 1; i >= 0; i--) {
+        arrayPrefix = i === 0 ? '' : ',';
         queue.push({obj: obj[i], prefix: arrayPrefix});
       }
       queue.push({val: '['});
     } else { // object
-      var keys = [];
-      for (var k in obj) {
+      keys = [];
+      for (k in obj) {
         if (obj.hasOwnProperty(k)) {
           keys.push(k);
         }
       }
       queue.push({val: '}'});
-      for (var ii = keys.length - 1; ii >= 0; ii--) {
-        var key = keys[ii];
-        var value = obj[key];
-        var objPrefix = (ii > 0 ? ',' : '');
+      for (i = keys.length - 1; i >= 0; i--) {
+        key = keys[i];
+        value = obj[key];
+        objPrefix = (i > 0 ? ',' : '');
         objPrefix += JSON.stringify(key) + ':';
         queue.push({obj: value, prefix: objPrefix});
       }
@@ -76,9 +76,11 @@ exports.parse = function (str) {
   var stack = [];
   var metaStack = []; // stack for arrays and objects
   var i = 0;
-
+  var collationIndex,parsedNum,numChar;
+  var parsedString,lastCh,numConsecutiveSlashes,ch;
+  var arrayElement, objElement;
   while (true) {
-    var collationIndex = str[i++];
+    collationIndex = str[i++];
     if (collationIndex === '}' ||
         collationIndex === ']' ||
         typeof collationIndex === 'undefined') {
@@ -119,10 +121,10 @@ exports.parse = function (str) {
       case '8':
       case '9':
       case '-':
-        var parsedNum = '';
+        parsedNum = '';
         i--;
         while (true) {
-          var numChar = str[i++];
+          numChar = str[i++];
           if (/[\d\.\-e\+]/.test(numChar)) {
             parsedNum += numChar;
           } else {
@@ -133,11 +135,11 @@ exports.parse = function (str) {
         pop(parseFloat(parsedNum), stack, metaStack);
         break;
       case '"':
-        var parsedString = '';
-        var lastCh;
-        var numConsecutiveSlashes = 0;
+        parsedString = '';
+        lastCh = void 0;
+        numConsecutiveSlashes = 0;
         while (true) {
-          var ch = str[i++];
+          ch = str[i++];
           if (ch !== '"' || (lastCh === '\\' &&
               numConsecutiveSlashes % 2 === 1)) {
             parsedString += ch;
@@ -154,12 +156,12 @@ exports.parse = function (str) {
         pop(JSON.parse('"' + parsedString + '"'), stack, metaStack);
         break;
       case '[':
-        var arrayElement = { element: [], index: stack.length };
+        arrayElement = { element: [], index: stack.length };
         stack.push(arrayElement.element);
         metaStack.push(arrayElement);
         break;
       case '{':
-        var objElement = { element: {}, index: stack.length };
+        objElement = { element: {}, index: stack.length };
         stack.push(objElement.element);
         metaStack.push(objElement);
         break;
