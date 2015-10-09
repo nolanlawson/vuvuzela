@@ -14,7 +14,7 @@
     "recursion"
   ],
   "author": "Nolan Lawson <nolan.lawson@gmail.com>",
-  "license": "Apache 2",
+  "license": "Apache-2.0",
   "bugs": {
     "url": "https://github.com/nolanlawson/vuvuzela/issues"
   },
