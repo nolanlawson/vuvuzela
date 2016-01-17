@@ -27,6 +27,9 @@
     "build": "mkdir -p dist && browserify index.js -s vuvuzela -o dist/vuvuzela.js && npm run min",
     "min": "uglifyjs dist/vuvuzela.js -mc > dist/vuvuzela.min.js"
   },
+  "files": [
+    "dist"
+  ],
   "devDependencies": {
     "browserify": "~2.36.0",
     "chai": "^1.9.1",
