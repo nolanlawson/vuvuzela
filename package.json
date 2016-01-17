@@ -1,6 +1,6 @@
 {
   "name": "vuvuzela",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Super simple and non-recursive JSON parse/stringify library",
   "main": "index.js",
   "repository": {
