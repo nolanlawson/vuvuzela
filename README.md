@@ -1,7 +1,5 @@
-vuvuzela
+vuvuzela [![Build Status](https://travis-ci.org/nolanlawson/vuvuzela.svg)](https://travis-ci.org/nolanlawson/vuvuzela)
 =========
-
-[![Build Status](https://travis-ci.org/nolanlawson/vuvuzela.svg)](https://travis-ci.org/nolanlawson/vuvuzela)
 
 Simple and non-recursive JSON parse/stringify library.
 
