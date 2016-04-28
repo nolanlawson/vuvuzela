@@ -28,7 +28,8 @@
     "min": "uglifyjs dist/vuvuzela.js -mc > dist/vuvuzela.min.js"
   },
   "files": [
-    "dist"
+    "dist",
+    "index.js"
   ],
   "devDependencies": {
     "browserify": "~2.36.0",
